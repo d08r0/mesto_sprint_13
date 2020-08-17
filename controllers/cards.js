@@ -12,3 +12,9 @@ module.exports.createCard = (req, res) => {
     .then((card) => res.status(200).contentType('JSON').send({ data: card }))
     .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 };
+
+module.exports.deleteCard = (req, res) => {
+  Card.findByIdAndRemove(req.params.cardId)
+    .then((card) => res.status(200).contentType('JSON').send({ data: card }))
+    .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
+};

@@ -16,7 +16,7 @@ module.exports.createUser = (req, res) => {
 module.exports.getUser = (req, res) => {
   User.find({})
     .then((users) => {
-      const user = users.filter((item) => JSON.stringify(item._id) === JSON.stringify(req.params.id));
+      const user = users.filter((item) => item._id.toString() === req.params.id);
 
       if (user.length === 0) {
         res.status(404);
@@ -37,7 +37,11 @@ module.exports.getUser = (req, res) => {
 
 module.exports.patchUsers = (req, res) => {
   User.findByIdAndUpdate(req.params.id, req.body)
-    .then((user) => res.send({ data: user }))
+    .then((user) => {
+      res.status(200);
+      res.contentType('JSON');
+      res.send({ data: user });
+    })
     .catch(() => {
       res.status(500);
       res.contentType('JSON');
