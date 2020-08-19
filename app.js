@@ -21,6 +21,14 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use(express.static(`${__dirname}/public`));
 
+app.use((req, res, next) => {
+  req.user = {
+    _id: '5f39afb82369d9d35e4bfa6b',
+  };
+
+  next();
+});
+
 app.use('/', usersRouter);
 app.use('/', cardsRouter);
 
@@ -30,14 +38,6 @@ app.use((req, res, next) => {
   res.contentType('JSON');
   error.status = 404;
   res.send({ message: 'Запрашиваемый ресурс не найден' });
-  next();
-});
-
-app.use((req, res, next) => {
-  req.user = {
-    _id: '5f39afb82369d9d35e4bfa6b',
-  };
-
   next();
 });
 

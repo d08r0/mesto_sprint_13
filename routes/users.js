@@ -10,6 +10,6 @@ usersRouter.post('/users', createUser);
 
 usersRouter.get('/users/:id', getUser);
 
-usersRouter.patch('/users/:id', patchUsers);
+usersRouter.patch('/users/me', patchUsers);
 
 module.exports = usersRouter;
