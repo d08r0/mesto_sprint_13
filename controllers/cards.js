@@ -15,8 +15,8 @@ module.exports.createCard = (req, res) => {
 };
 
 module.exports.deleteCard = (req, res) => {
-  Card.findByIdAndRemove(req.params.cardId)
-    .orFail(new Error('Not Found'))
+  Card.findByIdAndDelete(req.params.cardId)
+    .orFail()
     .then((card) => res.status(200).contentType('JSON').send({ data: card }))
-    .catch(() => res.status(404).send({ message: 'Произошла ошибка' }));
+    .catch(() => res.status(404).send({ message: 'Ресурс не найден' }));
 };
